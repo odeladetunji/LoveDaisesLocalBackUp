@@ -9,7 +9,7 @@ router.get('/', function(req, res){
     var decodingQuery = decodeURIComponent(queryString.slice(21));
     var theSearchQuery = decodingQuery;
     res.cookie('theSearchQuery', theSearchQuery, { maxAge: 60 * 60 * 24 * 3650 , path: "/", httpOnly: false});
-    res.render('Meet People');
+    res.render('firsthomepage');
 });
 
 module.exports = router;

@@ -91,6 +91,70 @@ function renderingHomePage(){
                   });
     }
 
+    function insertingToMongoDbDaisesCollection(theRandomNumber, message){
+
+       var personalPicture;
+       var firstname;
+       var lastname;
+       var sql = 'select pictures, FirstName, LastName from registrationtable where email = ?';
+       connection.query(sql, [email], function(error, results, fields){
+            if(error)throw error;
+            personalPicture = results[0].pictures;
+            firstname = results[0].FirstName;
+            lastname = results[0].LastName;
+            insertToMongoDb(personalPicture, message, firstname, lastname);
+       });
+       
+       //Am commenting out the code here since this feature is not needed yet!
+       /*if(req.files.videofile){
+          var videofile = req.files.videofile[0].filename;
+       }else{
+          var videofile = '';
+       }
+
+       if(req.files.imagefile){
+          var imagefile = req.files.imagefile[0].filename;
+       }else{
+          var imagefile = '';
+       }*/
+       
+       if(new Date().getHours() > 12){
+           var period = 'PM';
+       }else{
+           var period = 'AM';
+       }
+
+      function insertToMongoDb(personalPicture, message, firstname, lastname){
+             mongo.connect(url, function(err, db){
+                  db.collection('Daises').insert({
+                                    'Title': 'Posted Daises',
+                                    'Daises': {
+                                                'Daises': message,
+                                                'FirstName': firstname,
+                                                'LastName': lastname,
+                                                'PersonalPicture': personalPicture,
+                                                'OnlineStatus': '',
+                                                'PostedPicture': "",
+                                                'PostedVideo': "",
+                                                'Email': email,
+                                                'RateAvg1': 10,
+                                                'RateAvg2': 10,
+                                                'DaisesIdentity': theRandomNumber
+                                              },
+                                    'Time': {
+                                              'Period': period,
+                                              'Seconds': new Date().getSeconds(),
+                                              'Minutes': new Date().getMinutes(),
+                                              'Time': new Date().getHours(),
+                                              'Day': new Date().getDay(),
+                                              'Month': new Date().getMonth(),
+                                              'Year': new Date().getFullYear()
+                                            }                                                                                      
+                 });  
+            });                       
+      }
+    }
+
     function insertDaisesIntoDatabase(theGeneratedIdentity){
               var dataToUpdate1 = {
                     'Email': email,
@@ -101,20 +165,22 @@ function renderingHomePage(){
               }
 
               for(x in req.body){
-                    if(x == 'message1'){
+                    if(x == 'message3'){
                         console.log('only this guy ransssssssssssssssssss')
                          function insertingIntoDatabase1(identity){
                                var sql = "INSERT INTO daisesposting SET ?";
                                connection.query(sql, dataToUpdate1, function (error, results, fields) {
                                     if(error) throw error;
                                     //console.log(results);
-                                     console.log('Beloved Daises was inputed to Database');
+                                     console.log('Professional Daises was inputed to Database');
                                      //res.send({'message': "Daises was created!"});
                                       renderingHomePage();
                                       upDateDaisesPostingTable(theGeneratedIdentity);
+                                      insertingToMongoDbDaisesCollection(theGeneratedIdentity, message3)
                                      return;
                                });
                          }
+                         //calling above function
                          insertingIntoDatabase1(theGeneratedIdentity);
                     }
               }

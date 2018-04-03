@@ -30,7 +30,7 @@ router.post('/', function(req, res){
                       if(results[0].pictures != "") pictureValue.manImage = results[0].pictures;
                       
                       res.cookie('daises', email, { maxAge: 60 * 60 * 24 * 3650 , path: "/", httpOnly: false});
-                      res.render('homepage', { data: pictureValue.manImage });
+                      res.render('firsthomepage', { data: pictureValue.manImage });
                      // res.render('homepage')
                       connection.end();
                    });

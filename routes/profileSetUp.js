@@ -26,6 +26,7 @@ router.post('/', function(req, res){
 
 		var amount = req.body.amount;
 
+
 		var email = req.cookies.daises;
         console.log(email);
         console.log(email + " " + "checkout");
@@ -74,6 +75,70 @@ router.post('/', function(req, res){
                          console.log( Object.keys(vinil) + "  2222222222222222")
                   });
     }
+    
+    function insertingToMongoDbDaisesCollection(theRandomNumber, message){
+
+       var personalPicture;
+       var firstname;
+       var lastname;
+       var sql = 'select pictures, FirstName, LastName from registrationtable where email = ?';
+       connection.query(sql, [email], function(error, results, fields){
+            if(error)throw error;
+            personalPicture = results[0].pictures;
+            firstname = results[0].FirstName;
+            lastname = results[0].LastName;
+            insertToMongoDb(personalPicture, message, firstname, lastname);
+       });
+       
+       //Am commenting out the code here since this feature is not needed yet!
+       /*if(req.files.videofile){
+          var videofile = req.files.videofile[0].filename;
+       }else{
+          var videofile = '';
+       }
+
+       if(req.files.imagefile){
+          var imagefile = req.files.imagefile[0].filename;
+       }else{
+          var imagefile = '';
+       }*/
+       
+       if(new Date().getHours() > 12){
+           var period = 'PM';
+       }else{
+           var period = 'AM';
+       }
+
+      function insertToMongoDb(personalPicture, message, firstname, lastname){
+             mongo.connect(url, function(err, db){
+                  db.collection('Daises').insert({
+                                    'Title': 'Posted Daises',
+                                    'Daises': {
+                                                'Daises': message,
+                                                'FirstName': firstname,
+                                                'LastName': lastname,
+                                                'PersonalPicture': personalPicture,
+                                                'OnlineStatus': '',
+                                                'PostedPicture': "",
+                                                'PostedVideo': "",
+                                                'Email': email,
+                                                'RateAvg1': 10,
+                                                'RateAvg2': 10,
+                                                'DaisesIdentity': theRandomNumber
+                                              },
+                                    'Time': {
+                                              'Period': period,
+                                              'Seconds': new Date().getSeconds(),
+                                              'Minutes': new Date().getMinutes(),
+                                              'Time': new Date().getHours(),
+                                              'Day': new Date().getDay(),
+                                              'Month': new Date().getMonth(),
+                                              'Year': new Date().getFullYear()
+                                            }                                                                                      
+                 });  
+            });                       
+      }
+    }
 
     function insertDaisesIntoDatabase(theGeneratedIdentity){
               for(x in req.body){
@@ -95,6 +160,7 @@ router.post('/', function(req, res){
                                      res.send({'message': "Daises was created!"});
                                      updatingRegistrationTableWithAlaise1();
                                      upDateDaisesPostingTable(identity);
+                                     insertingToMongoDbDaisesCollection(identity, message1);
                                      return;
                                });
                          }
@@ -119,7 +185,8 @@ router.post('/', function(req, res){
                                        console.log('Saviour Daises was inputed to Database');
                                        res.send({'message': "Daises was created!"});
                                        updatingRegistrationTableWithAlaise();
-                                       upDateDaisesPostingTable(identity)
+                                       upDateDaisesPostingTable(identity);
+                                       insertingToMongoDbDaisesCollection(identity, message2);
                                        return;
                                  });
                           }
@@ -144,7 +211,7 @@ router.post('/', function(req, res){
                 if(error)throw error;
                 firstname = results[0].FirstName;
                 lastname = results[0].LastName;
-        
+                
                 nowUpdatingtheDatabase();
               });
           }
