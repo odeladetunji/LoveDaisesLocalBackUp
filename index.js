@@ -59,7 +59,8 @@ var settingsProfessional = require('./routes/settingsProfessional');
 var settingsBeloved = require('./routes/settingsBeloved');
 var settingsSaviour = require('./routes/settingsSaviour');
 var goingToHomePageNow = require('./routes/goingToHomePage');
-
+var firsthomepage = require('./routes/goingToFirstHomepage');
+var fromdefaulthomepage = require('./routes/defaulthomepage');
 // bodyparser middleware!!!
 var bodyParser = require('body-parser');
 // setting mysql variable
@@ -153,9 +154,10 @@ app.use('/settings', get_settings);
 app.use('/settingsProfessional', settingsProfessional);
 app.use('/settingsSaviour', settingsSaviour);
 app.use('/settingsBeloved', settingsBeloved);
-app.use('/settings/goingToHomePage', goingToHomePageNow)
-
-
+app.use('/settings/goingToHomePage', goingToHomePageNow);
+app.use('/profileSetUp/firsthomepage', firsthomepage);
+app.use('/settings/firsthomepage', firsthomepage);
+app.use('/firsthomepage/daises',fromdefaulthomepage);
 
 //app.use(allowCrossDomain);
 /*var whitelist = ["http://127.0.0.1:1337/changepicture", "http://127.0.0.1:1337/daisesposting", "http://127.0.0.1:8080/rating",
