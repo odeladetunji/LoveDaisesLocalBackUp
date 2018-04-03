@@ -3,7 +3,7 @@
 	margin: 0px;
 	padding: 0px;
 	font-family: verdana;
-	background-color: #1d353e;
+	background-color: azure;
 }
 .row::after {
 	background-color: lightgreen;
@@ -49,19 +49,69 @@ header ul li{
 }
 
 .search {
-	width: 30%;
+	width: 50%;
 	height: 30px;
-	float: right;
-	padding: 15px;
+	padding: 20px;
 	padding-left: 15px;
 	color: black;
 	border-radius: 5px;
 	border: 1px solid black;
-	margin-left: 30px;
+	margin-left: 25%;
+	margin-top: 200px;
 	border: 1px solid green;
 	cursor: pointer;
 	background-color: white;
 }
+
+.homeSearch {
+	width: 50%;
+	height: 30px;
+	padding: 20px;
+	padding-left: 15px;
+	color: black;
+	border-radius: 5px;
+	border: 1px solid black;
+	margin-left: 25%;
+	margin-top: 20px;
+	border: 1px solid green;
+	cursor: pointer;
+	background-color: white;
+}
+
+#lovedaisesHeading {
+	font-weight: bold;
+	text-align: center;
+	font-size: 35px;
+	margin-top: 100px;
+	color: brown;
+}
+
+.searchFilter {
+    margin-top: 50px;
+	margin-left: 10%;
+	width: 90%;
+	float: right;
+}
+
+.searchFilter ul li {
+    display: inline;
+}
+
+.searchFilter button {
+	padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#subCaption {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 200px;
+}
+
 
 .search1 {
 	width: 30%;
@@ -107,6 +157,7 @@ header li {
 	background-color: white;
 	width: 100%;
 	top: 0px;
+	border-bottom: 1px solid black;
 	/*display: none;*/
 }
 
@@ -160,6 +211,18 @@ header li {
 
 #upmostHeaderButton3, #upmostHeaderButton1, #upmostHeaderButton2 {
 	display: inline;
+}
+
+#headerInput {
+	width: 80%;
+	background-color: black;
+	color: white;
+	padding: 7px;
+	padding-left: 15px;
+	border-radius: 5px;
+	border: 1px solid #fafafa;
+	margin-top: 5px;
+	margin-left: 20px;
 }
 
 #upmostHeaderButton2:hover, #upmostHeaderButton1:hover {
@@ -349,14 +412,12 @@ header li {
 }
 .noResultSetFound {
 	width: 100%;
-    background-color: #f1f1f1;
     text-align: center;
 }
 
 .noResultSetFound p:nth-child(2) {
     text-align: center;
     font-size: 20px;
-    background-color: #f1f1f1;
     margin-bottom: 200px;
     color: green;
 }
@@ -368,7 +429,6 @@ header li {
 	margin-top: 150px;
 	
 	/*margin: auto;*/
-    background-color: #f1f1f1;
 }
 
 .outerCovergenerated{
@@ -526,19 +586,14 @@ header li {
 	  100% { transform: rotate(360deg); }
 	}
  .SearchHint{
-   width: 50%;
-   z-index: 100; 
-   top: 73px; 
-   left: 37.7%; 
-   position: fixed;
+   width: 100%;
  }
  .SearchHintp{
-    background-color: #183148; 
+    background-color: lavender; 
     padding: 4px; 
-    border: 0.2px solid #f1f1f1;
-    color: white;
+    border-bottom: 1px solid #fafafa;
+    color: default;
     padding-left: 10px;
-    border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     width: 100%;

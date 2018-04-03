@@ -3,7 +3,7 @@
  padding: 0px;
  margin: 0px;
  font-family: verdana;
- background-color: #1d353e;
+ background-color: azure;
 }
 
 
@@ -162,7 +162,6 @@ header li {
 
 #upmostHeaderButton2:hover, #upmostHeaderButton1:hover {
  background-color: green;
-
 }
 
 #personalheader p {
