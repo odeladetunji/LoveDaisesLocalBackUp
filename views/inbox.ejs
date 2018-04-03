@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/homepage.css">
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/reachOut.css">
 
-	<base href = "http://beloveddais.com/">
+	<base href = "http://127.0.0.1:9000/">
 
 </head>
 <body>
@@ -943,7 +943,7 @@ postAjax('/gettingFriendRequest', { 'personalEmail': mycookie}, function(theValu
         //ajaxSectionDynamic1
         if(data.message != 'No Friend Request!'){
         	for(var i=0; i < data.message.length; i++){
-        		     generatedHTML = '<div id="ajaxSectionDynamic1" class="' + data.message[i].FriendEmail + '">' + '<div id="outerCoverDynamic">' + '<p id="firstPDynamic">' + data.message[i].onlineStatus + '</p>' + '<p id="SecondP">' + data.message[i].FriendFirstName + " " + data.message[i].FriendLastName + '</p>' + '<div class="row" id="innerRowDynamic">' + '<div id="pictureDivDynamic" class="col-3">' + '<img src="http://beloveddais.win/Images/'+ data.message[i].FriendPicture + '"' + 'style="' + 'width:80%;"' + '/>' + '</div>' + '<div id="ratingDivDynamic" class="col-9">' + '<p id="ratingNumber1" style="visibility: hidden;">70</p>' + '<p id="ratingNumber2" style="visibility: hidden;">80</p>' + '<p id="mainReviewDynamic" style="visibility:  hidden;">reviews</p>' + '</div>' + '</div>' + '<p id="thirdPDynamic">' + data.message[i].Alaise + '</p>' + '<button id="connectButtonDynamic" onClick = "friendShipDecision(this);" data-custom ="' + data.message[i].FriendEmail + '"' + 'class="' + data.message[i].FriendEmail + '"' + '>Connect!</button>' + '</div>' + '</div>' + '<input type="text"/ style = "display: none;' + 'value="' + data.message[i].FriendEmail + '"' + " " +'/>';
+        		     generatedHTML = '<div id="ajaxSectionDynamic1" class="' + data.message[i].FriendEmail + '">' + '<div id="outerCoverDynamic">' + '<p id="firstPDynamic">' + data.message[i].onlineStatus + '</p>' + '<p id="SecondP">' + data.message[i].FriendFirstName + " " + data.message[i].FriendLastName + '</p>' + '<div class="row" id="innerRowDynamic">' + '<div id="pictureDivDynamic" class="col-3">' + '<img src="http://127.0.0.1:8000/Images/'+ data.message[i].FriendPicture + '"' + 'style="' + 'width:80%;"' + '/>' + '</div>' + '<div id="ratingDivDynamic" class="col-9">' + '<p id="ratingNumber1" style="visibility: hidden;">70</p>' + '<p id="ratingNumber2" style="visibility: hidden;">80</p>' + '<p id="mainReviewDynamic" style="visibility:  hidden;">reviews</p>' + '</div>' + '</div>' + '<p id="thirdPDynamic">' + data.message[i].Alaise + '</p>' + '<button id="connectButtonDynamic" onClick = "friendShipDecision(this);" data-custom ="' + data.message[i].FriendEmail + '"' + 'class="' + data.message[i].FriendEmail + '"' + '>Connect!</button>' + '</div>' + '</div>' + '<input type="text"/ style = "display: none;' + 'value="' + data.message[i].FriendEmail + '"' + " " +'/>';
                          // dynamic insertion!
 	                     $(generatedHTML).insertBefore('#ajaxSectionDynamic');
         	}
@@ -1030,7 +1030,7 @@ postAjax('/gettingFriendRequest', { 'personalEmail': mycookie}, function(theValu
       $('#loadbutton').click(function(){
             $('#loadingRequest').show(); 
             	 $.ajax({
-				        url: "http://beloveddais.win/getMoreFriends",
+				        url: "http://127.0.0.1:8000/getMoreFriends",
 				        type: 'GET',
 				        data: JSON.stringify({ personalEmail: mycookie /* GET THE COOKIE */}),
                         crossDomain: true,
@@ -1086,7 +1086,7 @@ postAjax('/gettingFriendRequest', { 'personalEmail': mycookie}, function(theValu
             	  if(searchQuery == '' || theType == 'number') return;
             	  var value = document.getElementById('hiddenFieldForm').value;
                   $.ajax({
-				        url: "http://beloveddais.win/homepageSearchQuery",
+				        url: "http://127.0.0.1:8000/homepageSearchQuery",
 				        type: 'POST',
 				        data: JSON.stringify({'searchQuery': searchQuery, 'hiddenFieldForm': value}),
                         crossDomain: true,
@@ -1170,7 +1170,7 @@ postAjax('/gettingFriendRequest', { 'personalEmail': mycookie}, function(theValu
 					            	//var uniqueId = abac;
 					            	for(var i=0; i < searchHint.length; i++){
 					            	    searchCounter++;
-					                    var generatedHTML = "<p class='SearchHintp'><a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%;'>" + searchHint[i] + "</a></p>";
+					                    var generatedHTML = "<p class='SearchHintp'><a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%;'>" + searchHint[i] + "</a></p>";
 					                   
 					                    $(generatedHTML).insertBefore('#SearchHint');
 					                    if(searchCounter == searchHint.length){

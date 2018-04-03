@@ -9,7 +9,7 @@
 
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/meetpeople.css">
 	<script src="/JavaScript/jquery-3.2.1.min(first).js"></script>
-	<base href = "http://beloveddais.com/">
+	<base href = "http://127.0.0.1:9000/">
 
 	<style type='text/css'>
 	</style>
@@ -146,7 +146,7 @@
              if(value == ''){ return; }
              $('#loaderInterfaceRequest').show();
               $.ajax({
-				        url: "http://beloveddais.win/liveSearch",
+				        url: "http://127.0.0.1:8000/liveSearch",
 				        type: 'POST',
 				        data: JSON.stringify({'value': value}),
                         crossDomain: true,
@@ -255,7 +255,7 @@
          }); 
           
        $.ajax({
-		        url: "http://beloveddais.win/liveSearch1",
+		        url: "http://127.0.0.1:8000/liveSearch1",
 		        type: 'POST',
 		        data: JSON.stringify({'value': mycookie}),
                 crossDomain: true,
@@ -370,7 +370,7 @@
         	  if(searchQuery == '' || theType == 'number') return;
         	  var value = document.getElementById('hiddenFieldForm').value;
               $.ajax({
-			        url: "http://beloveddais.win/homepageSearchQuery",
+			        url: "http://127.0.0.1:8000/homepageSearchQuery",
 			        type: 'POST',
 			        data: JSON.stringify({'searchQuery': searchQuery, 'hiddenFieldForm': value}),
                     crossDomain: true,
@@ -451,10 +451,10 @@
 				                console.log(searchHint);
 				                console.log('that is search hint above');
 				            	var searchCounter = 0;
-				            	//var uniqueId = abac;
+				            	//var uniqueId = abac
 				            	for(var i=0; i < searchHint.length; i++){
 				            	    searchCounter++;
-				                    var generatedHTML = "<p class='SearchHintp'><a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
+				                    var generatedHTML = "<p class='SearchHintp'><a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
 				                   // var generatedHTML = "<p onload='setOnlisterner()' class='SearchHintp'>" + searchHint[i] + "</p>";
 				                   //var generatedHTML = "<a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
 				                    $(generatedHTML).insertBefore('#SearchHint');
@@ -480,7 +480,7 @@
 		                  //rateUniqueId = value;
 		                  
 		     			   $.ajax({
-					        url: "http://beloveddais.win/gettingRating",
+					        url: "http://127.0.0.1:8000/gettingRating",
 					        type: 'POST',
 					        data: JSON.stringify({ sentData: value }),
 		                    crossDomain: true,
@@ -509,7 +509,7 @@
 		    	                    for(x in data.myName){
 		                                  dataCounter++;
 		                                 // dataSum += Number(data.myName[x].split(' ')[0]);
-		                                              generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://beloveddais.com/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
+		                                              generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://127.0.0.1:9000/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
 		                                              $(generatedHTML1).insertBefore(".someAttribute");
 
 		                                              if(dataCounter == returnedDataLength){
@@ -556,7 +556,7 @@
    	               var value = value;
  	       console.log(value + "   .............................");
          			   $.ajax({
-				        url: "http://beloveddais.win/gettingRatingsOfClosePeople",
+				        url: "http://127.0.0.1:8000/gettingRatingsOfClosePeople",
 				        type: 'POST',
 				        data: JSON.stringify({sentData: value}),
                         crossDomain: true,
@@ -594,7 +594,7 @@
 	    	                       var generatedHTML1;
 	    	                    for(x in data.myName){
                                       dataCounter++;
-                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://beloveddais.com/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
+                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://127.0.0.1:9000/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
                                                   $(generatedHTML1).insertBefore(".someAttribute");
 
                                                   if(dataCounter == returnedDataLength){

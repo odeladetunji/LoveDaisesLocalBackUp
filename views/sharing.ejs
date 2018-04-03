@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/reachOut.css">
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/reachOut1.css">
 
-	<base href = "http://beloveddais.com/">
+	<base href = "http://127.0.0.1:9000/">
     
 </head>
 <body>
@@ -324,7 +324,7 @@
         	  if(searchQuery == '' || theType == 'number') return;
         	  var value = document.getElementById('hiddenFieldForm').value;
               $.ajax({
-			        url: "http://beloveddais.win/homepageSearchQuery",
+			        url: "http://127.0.0.1:8000/homepageSearchQuery",
 			        type: 'POST',
 			        data: JSON.stringify({'searchQuery': searchQuery, 'hiddenFieldForm': value}),
                     crossDomain: true,
@@ -408,9 +408,9 @@
 				            	//var uniqueId = abac;
 				            	for(var i=0; i < searchHint.length; i++){
 				            	    searchCounter++;
-				                    var generatedHTML = "<p class='SearchHintp'><a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
+				                    var generatedHTML = "<p class='SearchHintp'><a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
 				                   // var generatedHTML = "<p onload='setOnlisterner()' class='SearchHintp'>" + searchHint[i] + "</p>";
-				                   //var generatedHTML = "<a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
+				                   //var generatedHTML = "<a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
 				                    $(generatedHTML).insertBefore('#SearchHint');
 				                    if(searchCounter == searchHint.length){
 				                         $('.SearchHint').show();

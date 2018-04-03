@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/homepage.css">
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/reachOut.css">
 
-	<base href = "http://beloveddais.com/">
+	<base href = "http://127.0.0.1:9000/">
 
 </head>
 <body>
@@ -852,7 +852,7 @@
         	  if(searchQuery == '' || theType == 'number') return;
         	  var value = document.getElementById('hiddenFieldForm').value;
               $.ajax({
-			        url: "http://beloveddais.win/homepageSearchQuery",
+			        url: "http://127.0.0.1:8000/homepageSearchQuery",
 			        type: 'POST',
 			        data: JSON.stringify({'searchQuery': searchQuery, 'hiddenFieldForm': value}),
                     crossDomain: true,
@@ -936,9 +936,9 @@
 				            	//var uniqueId = abac;
 				            	for(var i=0; i < searchHint.length; i++){
 				            	    searchCounter++;
-				                    var generatedHTML = "<p class='SearchHintp'><a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
+				                    var generatedHTML = "<p class='SearchHintp'><a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: white; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
 				                   // var generatedHTML = "<p onload='setOnlisterner()' class='SearchHintp'>" + searchHint[i] + "</p>";
-				                   //var generatedHTML = "<a href='http://beloveddais.com/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
+				                   //var generatedHTML = "<a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
 				                    $(generatedHTML).insertBefore('#SearchHint');
 				                    if(searchCounter == searchHint.length){
 				                         $('.SearchHint').show();
@@ -955,7 +955,7 @@
       });
 
       $.ajax({
-			        url: "http://beloveddais.win/personalWebHistory",
+			        url: "http://127.0.0.1:8000/personalWebHistory",
 			        type: 'POST',
 			        data: JSON.stringify({'personalEmail': mycookie}),
                     crossDomain: true,
@@ -972,7 +972,7 @@
                              // dynamic html;
 
                              if(data.message[i].PostedPicture == ''){
-                             	pastDaises = "<div id='ajaxSection'><p id='caption'>" + data.message[i].Tag + "</p><hr><p id='caption1'>" + data.message[i].firstName + " " + data.message[i].lastName + "</p><div class='row' style='width: 95%;'><div class='col-3' style='padding:0px;'><img src='http://beloveddais.win/images/" + data.message[i].PersonalPicture + "'" + "  " + "alt='' id='AjaxImage'></div><div class='col-9 rateValue' style='background-color: white;'><p id='" + data.message[i].DaisesIdentity + "'style='' onclick='outputtingRating("+ data.message[i].DaisesIdentity + ")' data-generalRating ='" + data.message[i].DaisesIdentity + "'>" + data.message[i].RateAvg1 + "</p><p class='" + data.message[i].DaisesIdentity + "' style='' onClick='outputtingSecondRating(this);' data-secondRatingValue='" + data.message[i].DaisesIdentity + "'" + ">" + data.message[i].RateAvg2 + "</p><p id='reviews' class='" + data.message[i].DaisesIdentity + "' onClick='gettingPostIdentity("+ data.message[i].DaisesIdentity + ")' style='color: black;'>reviews</p></div></div><p style='width: 92.5%;margin-left: 2.5%; margin-top: 5px;cursor: pointer; padding-top: 120px; padding-bottom: 120px; color: white; background-color: #183148; text-align: center; border-radius: 5px;' id='discoarse'>" + data.message[i].Discursion + "</p><div id='sharelikeComment'><button id='ajaxRecieveButton' data-custom ='" + data.message[i].DaisesIdentity + "' style='background-color: #183148; color:white;border: 2px solid orange; padding:5px; border-radius: 5px; float: right;margin-right: 30px; padding-left: 6px;padding-right: 6px; margin-top: 5px;' onClick='addAttributeToFriendListInterface(this)'>Connect!</button></div></div><br>";
+                             	pastDaises = "<div id='ajaxSection'><p id='caption'>" + data.message[i].Tag + "</p><hr><p id='caption1'>" + data.message[i].firstName + " " + data.message[i].lastName + "</p><div class='row' style='width: 95%;'><div class='col-3' style='padding:0px;'><img src='http://127.0.0.1:8000/images/" + data.message[i].PersonalPicture + "'" + "  " + "alt='' id='AjaxImage'></div><div class='col-9 rateValue' style='background-color: white;'><p id='" + data.message[i].DaisesIdentity + "'style='' onclick='outputtingRating("+ data.message[i].DaisesIdentity + ")' data-generalRating ='" + data.message[i].DaisesIdentity + "'>" + data.message[i].RateAvg1 + "</p><p class='" + data.message[i].DaisesIdentity + "' style='' onClick='outputtingSecondRating(this);' data-secondRatingValue='" + data.message[i].DaisesIdentity + "'" + ">" + data.message[i].RateAvg2 + "</p><p id='reviews' class='" + data.message[i].DaisesIdentity + "' onClick='gettingPostIdentity("+ data.message[i].DaisesIdentity + ")' style='color: black;'>reviews</p></div></div><p style='width: 92.5%;margin-left: 2.5%; margin-top: 5px;cursor: pointer; padding-top: 120px; padding-bottom: 120px; color: white; background-color: #183148; text-align: center; border-radius: 5px;' id='discoarse'>" + data.message[i].Discursion + "</p><div id='sharelikeComment'><button id='ajaxRecieveButton' data-custom ='" + data.message[i].DaisesIdentity + "' style='background-color: #183148; color:white;border: 2px solid orange; padding:5px; border-radius: 5px; float: right;margin-right: 30px; padding-left: 6px;padding-right: 6px; margin-top: 5px;' onClick='addAttributeToFriendListInterface(this)'>Connect!</button></div></div><br>";
                             
                  	                $(pastDaises).insertBefore("#ajaxSection");
 
@@ -980,7 +980,7 @@
 
                              }
 
-			            	 pastDaises = "<div id='ajaxSection'><p id='caption'>" + data.message[i].Tag + "</p><hr><p id='caption1'>" + data.message[i].firstName + " " + data.message[i].lastName + "</p><div class='row' style='width: 95%;'><div class='col-3' style='padding:0px;'><img src='http://beloveddais.win/images/" + data.message[i].PersonalPicture + "'" + "  " + "alt='' id='AjaxImage'></div><div class='col-9 rateValue' style='background-color: white;'><p id='" + data.message[i].DaisesIdentity + "'style='' onclick='outputtingRating("+ data.message[i].DaisesIdentity + ")' data-generalRating ='" + data.message[i].DaisesIdentity + "'>" + data.message[i].RateAvg1 + "</p><p class='" + data.message[i].DaisesIdentity + "' style='' onClick='outputtingSecondRating(this);' data-secondRatingValue='" + data.message[i].DaisesIdentity + "'" + ">" + data.message[i].RateAvg2 + "</p><p id='reviews' class='" + data.message[i].DaisesIdentity + "' onClick='gettingPostIdentity("+ data.message[i].DaisesIdentity + ")' style='color: black;'>reviews</p></div></div><p style='width: 95%;margin-left: 2.5%; cursor: pointer;' id='discoarse'>" + data.message[i].Discursion + "</p><div id='innerAjaxDiv' style='width: 95%; border: 1px solid grey; margin-left: 2.5%;'><img src='http://beloveddais.win/images/" + data.message[i].PostedPicture + "'" + "  " + "alt='' style='width: 100%'></div> <!-- <div id='innerAjaxDiv1'><p>further discription of post will be here!!!</p></div> --> <!-- <hr id='secondrule'/> --> <div id='sharelikeComment'><button id='ajaxRecieveButton' data-custom ='" + data.message[i].DaisesIdentity + "' style='background-color: #183148; color:white;border: 2px solid orange; padding:5px; border-radius: 5px; float: right;margin-right: 13px; margin-top: 3px; margin-bottom: 2px; padding-left: 6px;padding-right: 6px;' onClick='addAttributeToFriendListInterface(this)'>Connect!</button></div></div><br>";
+			            	 pastDaises = "<div id='ajaxSection'><p id='caption'>" + data.message[i].Tag + "</p><hr><p id='caption1'>" + data.message[i].firstName + " " + data.message[i].lastName + "</p><div class='row' style='width: 95%;'><div class='col-3' style='padding:0px;'><img src='http://127.0.0.1:8000/images/" + data.message[i].PersonalPicture + "'" + "  " + "alt='' id='AjaxImage'></div><div class='col-9 rateValue' style='background-color: white;'><p id='" + data.message[i].DaisesIdentity + "'style='' onclick='outputtingRating("+ data.message[i].DaisesIdentity + ")' data-generalRating ='" + data.message[i].DaisesIdentity + "'>" + data.message[i].RateAvg1 + "</p><p class='" + data.message[i].DaisesIdentity + "' style='' onClick='outputtingSecondRating(this);' data-secondRatingValue='" + data.message[i].DaisesIdentity + "'" + ">" + data.message[i].RateAvg2 + "</p><p id='reviews' class='" + data.message[i].DaisesIdentity + "' onClick='gettingPostIdentity("+ data.message[i].DaisesIdentity + ")' style='color: black;'>reviews</p></div></div><p style='width: 95%;margin-left: 2.5%; cursor: pointer;' id='discoarse'>" + data.message[i].Discursion + "</p><div id='innerAjaxDiv' style='width: 95%; border: 1px solid grey; margin-left: 2.5%;'><img src='http://127.0.0.1:8000/images/" + data.message[i].PostedPicture + "'" + "  " + "alt='' style='width: 100%'></div> <!-- <div id='innerAjaxDiv1'><p>further discription of post will be here!!!</p></div> --> <!-- <hr id='secondrule'/> --> <div id='sharelikeComment'><button id='ajaxRecieveButton' data-custom ='" + data.message[i].DaisesIdentity + "' style='background-color: #183148; color:white;border: 2px solid orange; padding:5px; border-radius: 5px; float: right;margin-right: 13px; margin-top: 3px; margin-bottom: 2px; padding-left: 6px;padding-right: 6px;' onClick='addAttributeToFriendListInterface(this)'>Connect!</button></div></div><br>";
                             
                  	            $(pastDaises).insertBefore("#ajaxSection");
 			            }
@@ -998,7 +998,7 @@
                       rateUniqueId = value;
                       
          			   $.ajax({
-				        url: "http://beloveddais.win/gettingRating",
+				        url: "http://127.0.0.1:8000/gettingRating",
 				        type: 'POST',
 				        data: JSON.stringify({ sentData: value }),
                         crossDomain: true,
@@ -1027,7 +1027,7 @@
 	    	                    for(x in data.myName){
                                       dataCounter++;
                                      // dataSum += Number(data.myName[x].split(' ')[0]);
-                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://beloveddais.com/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
+                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://127.0.0.1:9000/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
                                                   $(generatedHTML1).insertBefore(".someAttribute");
 
                                                   if(dataCounter == returnedDataLength){
@@ -1074,7 +1074,7 @@
    	               var value = incomingObject.getAttribute('data-secondRatingValue');
  	       console.log(value + "   .............................");
          			   $.ajax({
-				        url: "http://beloveddais.win/gettingRatingsOfClosePeople",
+				        url: "http://127.0.0.1:8000/gettingRatingsOfClosePeople",
 				        type: 'POST',
 				        data: JSON.stringify({sentData: value}),
                         crossDomain: true,
@@ -1113,7 +1113,7 @@
 	    	                       var generatedHTML1;
 	    	                    for(x in data.myName){
                                       dataCounter++;
-                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://beloveddais.com/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
+                                                  generatedHTML1 = '<p class="generatedPRatings" style="padding-bottom: 20px; border-bottom: 1px solid #eeeeee; text-align: center;"><span>' + '<img src="http://127.0.0.1:9000/Images/' + data.myName[x].split(' ')[1] + '" style="width: 20%;"/></span><span style="padding-bottom: 10px;">' + data.myName[x].split(' ')[2] + '    ' + '</span><span style="padding: 10px; border-radius: 50%; color: white; background-color: green; border: 7px solid orange;">' + data.myName[x].split(' ')[0] + '</span></p>';
                                                   $(generatedHTML1).insertBefore(".someAttribute");
 
                                                   if(dataCounter == returnedDataLength){

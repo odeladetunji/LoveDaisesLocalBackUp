@@ -9,13 +9,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/StyleSheets/settings.css">
   <script src="/JavaScript/jquery-3.2.1.min(first).js"></script>
-  <base href="http://beloveddais.com/">
+  <base href="http://127.0.0.1:9000/">
 </head>
 <body>
   <div id='upmostHeader'>
-  <button id='upmostHeaderButton1'>Settings</button>
+  <button id='upmostHeaderButton1'>Daises</button>
   <button id='upmostHeaderButton2'>Logout</button>
-  <button id='upmostHeaderButton3' onclick="gotoHomePage()">Daises</button>
+  <button id='upmostHeaderButton3' onclick="gotoHomePage()">Home</button>
 </div>
 
 <header>
@@ -147,17 +147,18 @@
     <p onclick="moveToProfessional()">Professional</p>
 </div>
 <div class="returnedMessageFormContainer">
-   <form action="/settings/goingToHomePage" method="POST" class="returnedMessageForm">
+   <form action="/settings/firsthomepage" method="POST" class="returnedMessageForm">
          <P id='dynamicallyContent'>something was successfully submitted</P>
          <button>continue to homepage</button>
          <p id="stayingPButton">stay here!</p>
    </form>
 </div>
 <div id="hiddenForm" style="display: none;">
-  <form action="/settings/goingToHomePage" method="POST" id="theHiddenForm">
+  <form action="/settings/firsthomepage" method="POST" id="theHiddenForm">
        <!--THIS FORM IS HIDDEN BY DEFAULT-->
   </form>
 </div>
+
 <div class="col-2" id=''>
 </div>
 </div>
