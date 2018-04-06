@@ -1,8 +1,9 @@
-* {
+.reachOutDiv1 {
 	box-sizing: border-box;
 	margin: 0px;
 	padding: 0px;
 	font-family: verdana;
+    background-color: none;
 }
 .row::after {
 	content: "";
@@ -58,17 +59,13 @@ html {
      color: black;
      font-weight: bold;
 }
-#mainRow {
 
-   background-color: transparent;
-
-}
 #chatSection {
 	margin-top: 40px;
 	background-color: transparent;
 }
 
-#textInput1 {
+#textInput {
 	position: relative;
 	bottom: 0px;
 	width: 90%;
@@ -78,37 +75,17 @@ html {
 	margin-left: 5%;
 	border-radius: 5px;
 	font-size: 17px;
-	margin-top: 578px;
-}
-
-#textInput2 {
-	position: relative;
-	bottom: 0px;
-	width: 100%;
-	padding: 20px;
-	background-color: white;
-	border: 1px solid lightgreen;
-	margin-left: 5%;
-	border-radius: 5px;
-	font-size: 17px;
-	margin-top: 578px;
+	margin-top: 40px;
+	margin-top: 528px;
 }
 
 #Time {
 	margin-top: 40px;
 	background-color: transparent;
-	
 }
 
-#TimeFirstInnerDiv  {
-	background-color: white;
-	height: 600px;
-	width: 90%;
-	margin-right: 10%;
-}
-
-#Time #timer {
-	padding: 30%;
+#Time p {
+	padding: 32%;
 	/*max-width: 80%;*/
 	margin-right: 20%;
 	background-color: white;
@@ -116,7 +93,6 @@ html {
 	background-color: lightgreen;
 	border-radius: 50%;
 	border: 10px solid yellow;
-	font-weight: bold;
 }
 
 #connectionButton  {
@@ -124,9 +100,9 @@ html {
 	background-color: #110033;
 	color: white;
 	margin-left: 10%;
-	border-radius: 5px;
+	border: none;
 	border: 1px solid yellow;
-	
+	border-radius: 5px;
 }
 
 #connectionButton:hover  {
@@ -135,18 +111,68 @@ html {
 	color: black;
 
 }
-#modal1 {
-	/*display: none; /* Hidden by default */*/
+
+#mainRow1 {
+   -webkit-animation-name: zoom;
+   -webkit-animation-duration: 0.1s;
+   animation-name: zoom;
+   animation-duration: 0.1s;
+   background-color: transparent;
+}
+
+.modal2 {
+	/*display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 4; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.2); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.2) !important; /* Black w/ opacity */
 }
-.mainRow1 {
-	position: fixed;
+
+@keyframes zoom {
+	from {transform: scale(0)}
+	to {transform: scale(1)}
+}
+
+@-webkit-keyframes zoom {
+	from {-webkit-transform: scale(0)}
+	to {-webkit-transform: scale(1)}
+}
+
+#videoChatCaption {
+	margin-top: 200px !important;
+	background-color: transparent;
+}
+
+#showVideoChat {
+	 margin-top: 20px;
+     background-color: transparent;
+     border: 1px solid orange;
+     cursor: pointer;
+}
+
+#timer {
+	border: 1px solid orange !important;
+	background-color: transparent !important;
+	color: white;
+}
+
+#close2 {
+	background-color: transparent !important;
+	color: red !important;
+	padding: 5px !important;
+	border: 5px solid red !important;
+	border-radius: 50%;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+
+#textInput2 {
+	background-color: transparent !important;
+	color: yellow !important;
+	border: 1px solid yellow;
 }

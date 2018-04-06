@@ -115,6 +115,7 @@ function insertingToMongoDbDaisesCollection(theRandomNumber, message){
                                                 'OnlineStatus': '',
                                                 'PostedPicture': "",
                                                 'PostedVideo': "",
+                                                'DaisesType': 'professional',
                                                 'Email': email,
                                                 'RateAvg1': 10,
                                                 'RateAvg2': 10,

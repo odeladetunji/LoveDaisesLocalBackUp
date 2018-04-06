@@ -3,7 +3,6 @@
 	margin: 0px;
 	padding: 0px;
 	font-family: verdana;
-	background-color: azure;
 }
 .row::after {
 	background-color: lightgreen;
@@ -27,6 +26,9 @@
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
+body{
+	background-color: azure;
+}
 html {
 	font-family: vadana;
 }
@@ -84,6 +86,53 @@ header ul li{
 	font-size: 35px;
 	margin-top: 100px;
 	color: brown;
+	background-color: azure;
+}
+
+#envelopeIcon {
+	font-size: 50px;
+	color: grey;
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-left: 14%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: white;
+}
+
+#chatIcon {
+	font-size: 50px;
+	color: magenta;
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-left: 14%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: white;
+}
+
+#videoCameraIcon {
+	font-size: 40px;
+	color: red;
+	padding: 15px;
+	border-radius: 50%;
+	margin-top: 300px;
+	margin-bottom: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: white;
+	margin-left: 10%;
+}
+
+#videoCameraIcon:hover, #chatIcon:hover, #envelopeIcon:hover {
+    border: 1px solid green;
+}
+
+.navigationDynamic {
+	position: fixed;
+	top: 50px;
+	z-index: 3;
+	left: 2%;
+	background-color: transparent;
 }
 
 .searchFilter {
@@ -114,17 +163,17 @@ header ul li{
 
 
 .search1 {
-	width: 30%;
+	width: 22%;
 	height: 30px;
-	float: right;
 	padding: 5px;
 	padding-left: 15px;
 	color: black;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-style: none;
-	margin-left: 30px;
 	border: 1px solid green;
 	cursor: pointer;
+	background-color: white;
+	margin-top: 5px;
 }
 
 .search1, .search {

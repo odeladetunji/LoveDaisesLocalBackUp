@@ -76,7 +76,7 @@ router.post('/', function(req, res){
                   });
     }
     
-    function insertingToMongoDbDaisesCollection(theRandomNumber, message){
+    function insertingToMongoDbDaisesCollection(theRandomNumber, message, enteredDaises){
 
        var personalPicture;
        var firstname;
@@ -121,6 +121,7 @@ router.post('/', function(req, res){
                                                 'OnlineStatus': '',
                                                 'PostedPicture': "",
                                                 'PostedVideo': "",
+                                                'DaisesType': enteredDaises,
                                                 'Email': email,
                                                 'RateAvg1': 10,
                                                 'RateAvg2': 10,
@@ -160,7 +161,8 @@ router.post('/', function(req, res){
                                      res.send({'message': "Daises was created!"});
                                      updatingRegistrationTableWithAlaise1();
                                      upDateDaisesPostingTable(identity);
-                                     insertingToMongoDbDaisesCollection(identity, message1);
+                                     var belovedDaises = "beloved";
+                                     insertingToMongoDbDaisesCollection(identity, message1, belovedDaises);
                                      return;
                                });
                          }
@@ -186,7 +188,8 @@ router.post('/', function(req, res){
                                        res.send({'message': "Daises was created!"});
                                        updatingRegistrationTableWithAlaise();
                                        upDateDaisesPostingTable(identity);
-                                       insertingToMongoDbDaisesCollection(identity, message2);
+                                       var saviouDaises = 'saviour';
+                                       insertingToMongoDbDaisesCollection(identity, message2, saviouDaises);
                                        return;
                                  });
                           }

@@ -115,6 +115,7 @@ function sendingMessageBackToSettings(){
                                                 'OnlineStatus': '',
                                                 'PostedPicture': "",
                                                 'PostedVideo': "",
+                                                'DaisesType': "beloved",
                                                 'Email': email,
                                                 'RateAvg1': 10,
                                                 'RateAvg2': 10,

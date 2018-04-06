@@ -7,7 +7,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" type="text/css" href="/StyleSheets/meetpeople.css">
+	
+	<link rel="stylesheet" type="text/css" href="/StyleSheets/rateFinal.css">
+	<link rel="stylesheet" type="text/css" href="/StyleSheets/messaging.css">
+	<link rel="stylesheet" type="text/css" href="/StyleSheets/chat.css">
+    <link rel="stylesheet" type="text/css" href="/StyleSheets/meetpeople.css">
 	<script src="/JavaScript/jquery-3.2.1.min(first).js"></script>
 	<base href = "http://127.0.0.1:9000/">
 
@@ -26,12 +30,20 @@
    
 	<!-- this hidden p element is used to imidiately set a value 
 	for ajax Call to get the search result from the server!-->
+
     <div class="searchFilter">
     	<p>Search Filter</p>
     	<ul>
     		<li><button style="color: green;" id="onlineButton">Online</button></li>
     		<li><button style="color: red;" id="offlineButton">offline</button></li>
     	</ul>
+    	 <select name="statusTag" class='search1' style="border: none; background-color: white;">
+             <option value="Please Select Type of Search!!!">Please Select Type of Search!!!</option>
+             <option value="filter by Beloved">filter by Beloved</option>
+             <option value="filter by Saviour">filter by Saviour</option>
+             <option value="filter by Professional">filter by Professional</option>
+         </select>
+         <p style="color: red; margin-top: 5px; display: none;" id="warnmsg1">Please Select Type of Search!</p>
     </div>
 
     <p id="lovedaisesHeading">LoveDaises</p>
@@ -40,10 +52,20 @@
 	   <input type="text" class="homeSearch searchDaises" value="Search For Services OR Get Help">
 	   	<div>
 		     <% include ./partials/SearchHint %>
+		     <% include ./partials/SearchWarning %>
 	    </div>
 	   <p id="subCaption">Recieve or Give Anything for Free || Also Hire A Professional</p>
 	   <input type="text" id="hiddenFieldForm" style="display: none;">
     </form>
+
+    <div class="navigationDynamic">
+    	<div>
+    		<img src="" alt="">
+    	</div>
+    	<i class="fa fa-video-camera" id="videoCameraIcon" onclick="showVideoInterface()"></i><br>
+    	<i class="fa fa-comments" id="chatIcon" onclick="showChattingInterface()"></i><br>
+    	<i class="fa fa-envelope-open" id="envelopeIcon"></i>
+    </div>
 	<p style="display: none;" id="hiddenAlways"></p>
 	<div class="singleSection" style="width: 100%;">
 		 <p id='amountOfData' style="padding-top: 20px; font-weight: bold; margin-top: 70px; padding-left: 30%; color: white;"></p>
@@ -62,9 +84,24 @@
 	<div>
 		     <% include ./partials/loaderInterfaceMeetPeople %>
 	</div>
+	 <div>
+     	 <% include ./partials/ratingFinal %>
+     </div>
 	<div>
 		     <% include ./partials/returnedRatingsEveryOneMeetPeople %>
 	</div>
+
+	<div>
+		     <% include ./partials/chattingFromFirstHomepage %>
+	</div>
+
+	<div>
+		     <% include ./partials/videoChatInterface %>
+	</div>
+	<div>
+		     <% include ./partials/videoModalMessage %>
+	</div>
+
 
 	<div style="display: none;">
 		 <form action="/firsthomepage/daises" method="GET" class="goingToFirstHomePage">
@@ -78,6 +115,11 @@
 	</div>
 	<div style="display: none;">
 		 <form action="/" method="GET" class="displayingFinalResultSearch">
+		 	  
+		 </form>
+	</div>
+	<div style="display: none;">
+		 <form action="/getInboxpage" method="GET" class="displayRequest">
 		 	  
 		 </form>
 	</div>
@@ -124,8 +166,32 @@
 	<p>	LoveDaises Copyright 2017</p>
 </div>
 <script type="application/javascript">
-	
-           
+          $('.videoModal').hide();
+          document.getElementById('textInput2').value = "start chatting!";
+          function closingVideoChatInterface(){
+               $('.videoChatInterface').hide();
+          }
+
+          function showChattingInterface(){
+          	  $('#mode1').show();
+          	  console.log();
+          }
+         
+          function showVideoInterface(){
+          	  $('.videoChatInterface').show();
+          	  $('#mode1').hide();
+          }
+
+          function closeChattingInterface(){
+               $('#mode1').hide();
+          }
+	     //going to inbox page!
+	     $('#envelopeIcon').click(function(event){
+	     	  $('.displayRequest').submit();
+	     });
+
+         var onlineSearchFilter, offlineSearchFilter, onlineSwitch, offlineSwitch;
+
 		 $('#upmostHeaderButton1').click(function(){
 		 	 console.log("this function triggered");
 		 	 $('.goingToSettings').submit();
@@ -142,10 +208,15 @@
                   document.getElementById('onlineButton').style.backgroundColor = 'green';
                   document.getElementById('onlineButton').style.color = 'white';
                   document.getElementById('onlineButton').style.border = '1px solid black';
+                  onlineSearchFilter = "green";
+                  onlineSwitch = "on";
+
          	 }else{
                   document.getElementById('onlineButton').style.backgroundColor = 'white';
                   document.getElementById('onlineButton').style.color = 'green';
                   document.getElementById('onlineButton').style.border = '1px solid black';
+                  onlineSearchFilter = "white";
+                  onlineSwitch = "off";
          	 }
 
              document.getElementById('offlineButton').style.backgroundColor = 'white';
@@ -160,10 +231,14 @@
                  document.getElementById('offlineButton').style.backgroundColor = 'green';
                  document.getElementById('offlineButton').style.color = 'white';
                  document.getElementById('offlineButton').style.border = '1px solid black';
+                 offlineSearchFilter = "green";
+                 offlineSwitch = 'on';
              }else{
              	 document.getElementById('offlineButton').style.backgroundColor = 'white';
                  document.getElementById('offlineButton').style.color = 'red';
                  document.getElementById('offlineButton').style.border = '1px solid black';
+                 offlineSearchFilter = "white";
+                 offlineSwitch = 'off';
              }
 
              document.getElementById('onlineButton').style.backgroundColor = 'white';
@@ -325,13 +400,13 @@
  */ 
 
        $('.headForm').hide();
-       $('.headForm').keyup(function(event){
+      /* $('.headForm').keyup(function(event){
        	      //document.getElementById('lovedaisesHeading').style.marginTop = "10px";
        	      //document.getElementsByClassName('homeSearch')[0].style.width = "98%";
        	      //document.getElementsByClassName('homeSearch')[0].style.marginLeft = "1%";
        	      //document.getElementsByClassName('homeSearch')[0].style.backgroundColor = "black";
        	      //document.getElementsByClassName('homeSearch')[0].style.color = "white";
-        	  $('.SearchHintp').hide();
+        	 // $('.SearchHintp').hide();
         	  var searchQuery = document.getElementById('headerInput').value;
         	  var theType = typeof searchQuery;
         	  if(theType == 'number') theType = 'number';
@@ -431,7 +506,7 @@
 				                     */
 				                   // var generatedHTML = "<p onload='setOnlisterner()' class='SearchHintp'>" + searchHint[i] + "</p>";
 				                   //var generatedHTML = "<a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
-				                    $(generatedHTML).insertBefore('#SearchHint');
+				/*                    $(generatedHTML).insertBefore('#SearchHint');
 				                    if(searchCounter == searchHint.length){
 				                         $('.SearchHint').show();
 				                         return;
@@ -444,9 +519,22 @@
 			        }
 			       
 			    });
-        });
+        });*/
        
        $('#headerForm').keyup(function(event){
+       	      $('.navigationDynamic').css("left", '93%');
+       	      var warnmsg = document.getElementsByClassName('search1')[0].value;
+       	      console.log(warnmsg);
+       	      console.log("thats the value above");
+       	      if(warnmsg == "Please Select Type of Search!!!"){
+       	      	 $('#warnmsg1').show();
+       	      	  document.getElementsByClassName('search1')[0].style.border = '1px solid red';
+       	      	 setTimeout(function(){
+                    $('#warnmsg1').hide();
+                    document.getElementsByClassName('search1')[0].style.border = 'none';
+       	      	 }, 300);
+       	      	 return;
+       	      }
        	      document.getElementById('lovedaisesHeading').style.marginTop = "10px";
        	      document.getElementsByClassName('homeSearch')[0].style.width = "98%";
        	      document.getElementsByClassName('homeSearch')[0].style.marginLeft = "1%";
@@ -476,11 +564,23 @@
 			        processData: false,
 			        success: function (data) {
 			        	console.log(data);
+			        	console.log('good check');
 			        	var arrayData = [];
 			        	var onlineCounter = 0;
 			            var onlineCounter1 = 0;
 			            var offlineCounter = 0;
 			            var offlineCounter1 = 0;
+			            //somthing
+			            var valueOfSearchFilterSelection;
+		        	    var professionalCounter= 0;
+		        	    var professionalArray = [];
+		        	    var saviourCounter = 0;
+		        	    var saviourArray = [];
+		        	    var belovedCounter = 0;
+		        	    var belovedArray = [];
+		        	    //something
+                        valueOfSearchFilterSelection = document.getElementsByClassName('search1')[0].value;
+
 			        	if(data.message == 'No Result Found!'){
 			        		var searchHint = "No Result, Continue Searching!";
 			        		showHint(searchHint);
@@ -488,53 +588,343 @@
 			        	};
 
 			            if(data.online != "" && data.offline != ''){
-                              for(var i=0; i < data.online.length; i++){
-                              	   onlineCounter++;
-                                   arrayData.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
-                                   arrayData.push(data.online[i].Daises);
-                                   if(onlineCounter == data.online.length){
-                                        // do something
-                                        break;
-                                   }
-                              }
+			            	console.log("code got here online");
+                            for(var i=0; i < data.online.length; i++){
+                               onlineCounter++;
+                               arrayData.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                               arrayData.push(data.online[i].Daises);
 
-                              for(var i=0; i < data.offline.length; i++){
-                              	   offlineCounter++;
-                                   arrayData.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
-                                   arrayData.push(data.offline[i].Daises);
-                                   if(offlineCounter == data.offline.length){
-                                   	    setTimeout(function(){
-                                   	    	showHint(arrayData);
-                                   	    },50);
-                                        return;
-                                   }
-                              }
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.online[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          professionalArray.push(data.online[i].Daises);
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.online[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          saviourArray.push(data.online[i].Daises);
+                          	         }
+
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.online[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.online[i]);
+                                          belovedArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          belovedArray.push(data.online[i].Daises);
+                          	         }
+                               }
+
+	                           if(onlineCounter == data.online.length){
+	                           	    if(valueOfSearchFilterSelection == "filter by Beloved"){
+	                                       if(belovedArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(belovedArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == "filter by Saviour"){
+	                           	    	if(saviourArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(saviourArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == 'filter by Professional'){
+	                           	    	if(professionalArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(professionalArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+	                           }
+                            }
+
+                            for(var i=0; i < data.offline.length; i++){
+                               offlineCounter++;
+                               arrayData.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                               arrayData.push(data.offline[i].Daises);
+                                    
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.offline[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                                          professionalArray.push(data.offline[i].Daises);
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.offline[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                                          saviourArray.push(data.offline[i].Daises);
+                          	         }
+
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.offline[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.offline[i].FirstName + ' ' + data.online[i].LastName);
+                                          belovedArray.push(data.offline[i].Daises);
+                          	         }
+                                }
+                               
+	                           if(offlineCounter == data.offline.length){
+	                           	   if(valueOfSearchFilterSelection == "filter by Beloved"){
+	                                       if(belovedArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(belovedArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == "filter by Saviour"){
+	                           	    	if(saviourArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(saviourArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == 'filter by Professional'){
+	                           	    	if(professionalArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(professionalArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+	                           }
+                            }
+                              
+                        }			   
+
+			            if(data.online == "" && data.offline.length >= 1){
+			            	console.log('code got here offline');
+			            	console.log('this particular offline');
+                            for(var i=0; i < data.offline.length; i++){
+                               console.log('code entered offline loop');
+                               console.log(valueOfSearchFilterSelection);
+                               offlineCounter++;
+                               arrayData.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                               arrayData.push(data.offline[i].Daises);
+                               console.log(valueOfSearchFilterSelection);
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                               	     console.log('code got to this point');
+                                     if(data.offline[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                                          professionalArray.push(data.offline[i].Daises);
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                               	     console.log('checking saviour');
+                                     if(data.offline[i].DaisesType == "saviour"){
+                                     	console.log('saviour entered if statement');
+                                          saviourCounter++;
+                                          saviourArray.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName);
+                                          saviourArray.push(data.offline[i].Daises);
+                          	         }
+
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.offline[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.offline[i].FirstName + ' ' + data.online[i].LastName);
+                                          belovedArray.push(data.offline[i].Daises);
+                          	         }
+                                }
+                               
+	                           if(offlineCounter == data.offline.length){
+	                           	    if(valueOfSearchFilterSelection == "filter by Beloved"){
+	                                    if(belovedArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(belovedArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == "filter by Saviour"){
+	                           	    	console.log('saviour 1');
+	                           	    	if(saviourArray.length == 0){ 
+                                             console.log('saviour 2');
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	 	  console.log('saviour 3');
+	                           	    	      showHint(saviourArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == 'filter by Professional'){
+	                           	    	if(professionalArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(professionalArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+	                           }
+                            }
 			            }
 
-			            if(data.online == "" && data.offline >= 1){
-                                   for(var i=0; i < data.online.length; i++){
-                                   	    offlineCounter1++;
-                                   	    //console.log('was this function called! ' +  );
-                                        arrayData.push(data.offline[i].FirstName + ' ' + data.offline[i].LastName); 
-                                        arrayData.push(data.offline[i].Daises);
-                                        if(offlineCounter1 == data.online.length){
-                                        	//console.log('was this function called!');
-                                            showHint(arrayData);
-                                        }
-                                   }
-			            }
 			            if(data.online != "" && data.offline == ''){
-                                   console.log('was this function called!');
-                                   for(var i=0; i < data.online.length; i++){
-                                   	console.log('was this function called!22');
-                                   	   onlineCounter1++;
-                                       arrayData.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
-                                       arrayData.push(data.online[i].Daises);
-                                       if(onlineCounter1 == data.online.length){
-                                       	    console.log('Code block Entered!');
-                                            showHint(arrayData);
-                                       }
-                                   }
+                           console.log('was this function called!');
+                           for(var i=0; i < data.online.length; i++){
+                               onlineCounter++;
+                               arrayData.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                               arrayData.push(data.online[i].Daises);
+
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.online[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          professionalArray.push(data.online[i].Daises);
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.online[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          saviourArray.push(data.online[i].Daises);
+                          	         }
+
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.online[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.online[i]);
+                                          belovedArray.push(data.online[i].FirstName + ' ' + data.online[i].LastName);
+                                          belovedArray.push(data.online[i].Daises);
+                          	         }
+                               }
+
+	                           if(onlineCounter == data.online.length){
+	                           	    if(valueOfSearchFilterSelection == "filter by Beloved"){
+	                                       if(belovedArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(belovedArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == "filter by Saviour"){
+	                           	    	if(saviourArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(saviourArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+
+	                           	    if(valueOfSearchFilterSelection == 'filter by Professional'){
+	                           	    	if(professionalArray.length == 0){ 
+
+                                             $('#loaderInterfaceRequest').hide();
+                                             $('.warningMessage').show();
+                                             setTimeout(function(){
+                                                $('.warningMessage').hide();
+                                             }, 3000);
+
+	                           	    	 }else{
+	                           	    	      showHint(professionalArray);
+	                                          return;
+	                           	    	 }
+	                           	    }
+	                           }
+                           }
 			            }
 
 			            function showHint(searchHint){
@@ -552,12 +942,6 @@
 				            	    searchCounter++;
 				                    var generatedHTML = "<p class='SearchHintp' onclick='displayingFoundDaisesFinal(this)' data-val='" + searchHint[i] + "' style='color: black; text-decoration: none; width: 100%;'>" + searchHint[i] + "</p>";
 
-
-				                    /**
-				                     * var generatedHTML = "<p class='SearchHintp'><a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + " style='color: black; text-decoration: none; width: 100%; background-color: transparent;'>" + searchHint[i] + "</a></p>";
-				                     */
-				                   // var generatedHTML = "<p onload='setOnlisterner()' class='SearchHintp'>" + searchHint[i] + "</p>";
-				                   //var generatedHTML = "<a href='http://127.0.0.1:9000/homepageSearchQuery/" + searchHint[i] + "'" + ' ' + " style='' class='SearchHintp'>" + searchHint[i] + "</a><br>";
 				                    $(generatedHTML).insertBefore('#SearchHint');
 				                    if(searchCounter == searchHint.length){
 				                         $('.SearchHint').show();
@@ -573,14 +957,14 @@
 			    });
         });
 
-
+        
         function displayingFoundDaisesFinal(pElement){
            
-              $('.headForm').show();
-              $('.SearchHint').hide();
-              $('#headerForm').hide();
+              //$('.headForm').show();
+              //$('.SearchHint').hide();
+              //$('#headerForm').hide();
               //document.getElementById();
-              var searchValue = pElement.getAttribute("data-val")
+              var searchValue = pElement.getAttribute("data-val");
               console.log(searchValue);
               //console.log(pElement);
 
@@ -601,6 +985,19 @@
 		            var onlineCounter1 = 0;
 		        	var offlineCounter = 0;
 		        	var offlineCounter1 = 0;
+		        	var valueOfSearchFilterSelection;
+		        	var professionalCounter= 0;
+		        	var professionalArray = [];
+		        	var saviourCounter = 0;
+		        	var saviourArray = [];
+		        	var belovedCounter = 0;
+		        	var belovedArray = [];
+		        	function insertSomeHTML(){
+                          var generatedHTML = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: green;">'+ data.online[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.online[i].FirstName + ' ' + data.online[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingRating(this.id)">' + data.online[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.online[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.online[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
+
+                              $(generatedHTML).insertBefore('#amountOfData1');
+                    }
+
 		        	var personalPicture, personalPicture1, personalPicture2, personalPicture3,personalPicture4;
                     $('.noResultSetFound').show();
 		        	if(data.message == 'No Result Found!'){
@@ -615,6 +1012,10 @@
                          return;
 		        	}
 		        	if(data.online != '' && data.offline != ''){
+		        		  if(onlineSwitch == "on" || offlineSwitch == "on"){
+                               return;
+		        		  }
+
 		        		  document.getElementById('amountOfData1').innerHTML = 'people found Online';
 		        		  $('.outerCovergenerated').hide();
                           for(var i=0; i < data.online.length; i++){
@@ -622,13 +1023,89 @@
                           	   if(data.online[i].PersonalPicture == ''){
                                     personalPicture = 'man.jpg';
                           	   }
-                               var generatedHTML = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: green;">'+ data.online[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.online[i].FirstName + ' ' + data.online[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingRating(this.id)">' + data.online[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.online[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.online[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
+                               
+                               //checking for type of daises entered! professional
+                               valueOfSearchFilterSelection = $('.search1').value;
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.online[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.online[i]);
+                                          insertSomeHTML(data.online[i]);
+                          	         }
 
-                               $(generatedHTML).insertBefore('#amountOfData1');
-                               if(onlineCounter == data.online.length){
+                          	         if(data.online.length == professionalCounter){
+                                          if(professionalArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.online[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.online[i]);
+                                         insertSomeHTML(data.online[i]);
+                          	         }
+
+                          	         if(data.online.length == saviourCounter){
+                                          if(saviourArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.online[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.online[i]);
+                                          insertSomeHTML(data.online[i]);
+                          	         }
+
+                          	         if(data.online.length == belovedCounter){
+                                          if(belovedArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+
+                               //$(generatedHTML).insertBefore('#amountOfData1');
+                              /* if(onlineCounter == data.online.length){
                                	   $('#loaderInterfaceRequest').hide();
                                    document.getElementsByClassName('firstRow')[0].style.display = 'block';
-                               }
+                               }*/
                           }
 
                           for(var i=0; i < data.offline.length; i++){
@@ -638,17 +1115,98 @@
                                     personalPicture1 = 'man.jpg';
                           	   }
 
-                               var generatedHTML1 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: red;">'+ data.offline[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.offline[i].FirstName + ' ' + data.offline[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.offline[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.offline[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.offline[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.offline[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
+                          	   //checking for type of daises entered! professional
+                               valueOfSearchFilterSelection = $('.search1').value;
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.offline[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
 
-                               $(generatedHTML1).insertBefore('#amountOfData2');
+                          	         if(data.offline.length == professionalCounter){
+                                          if(professionalArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.offline[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
+
+                          	         if(data.offline.length == saviourCounter){
+                                          if(saviourArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.offline[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
+
+                          	         if(data.offline.length == belovedCounter){
+                                          if(belovedArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+
+                              /* var generatedHTML1 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: red;">'+ data.offline[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.offline[i].FirstName + ' ' + data.offline[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.offline[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.offline[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.offline[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.offline[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';*/
+
+                              /* $(generatedHTML1).insertBefore('#amountOfData2');
                                if(offlineCounter == data.offline.length){
                                	   $('#loaderInterfaceRequest').hide();
                                    document.getElementsByClassName('firstRow')[0].style.display = 'block';
-                               }
+                               }*/
                           }
 		        	}
 
 		        	if(data.online != '' && data.offline == ''){
+		        		 if(offlineSwitch == 'on'){
+	                         // something
+                             return;
+		        		 }
+
 		        		 $('.outerCovergenerated').hide();
 		        		 $('#amountOfData').show();
                          for(var i=0; i < data.online.length; i++){
@@ -657,18 +1215,99 @@
                           	   if(data.online[i].PersonalPicture == ''){
                                     personalPicture3 = 'man.jpg';
                           	   }
-                               var generatedHTML3 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: green;">'+ data.online[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.online[i].FirstName + ' ' + data.online[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.online[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.online[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.online[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.online[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
+
+                          	     valueOfSearchFilterSelection = $('.search1').value;
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.online[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.online[i]);
+                                          insertSomeHTML(data.online[i]);
+                          	         }
+
+                          	         if(data.online.length == professionalCounter){
+                                          if(professionalArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.online[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.online[i]);
+                                         insertSomeHTML(data.online[i]);
+                          	         }
+
+                          	         if(data.online.length == saviourCounter){
+                                          if(saviourArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.online[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.online[i]);
+                                          insertSomeHTML(data.online[i]);
+                          	         }
+
+                          	         if(data.online.length == belovedCounter){
+                                          if(belovedArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+
+
+                               /*var generatedHTML3 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: green;">'+ data.online[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.online[i].FirstName + ' ' + data.online[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.online[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.online[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.online[i].DaisesIdentity + '"  onclick="outputtingSecondRating(this.id)">' + data.online[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.online[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
 
                                $(generatedHTML3).insertAfter('#amountOfData');
                                if(onlineCounter1 == data.online.length){
                                	   $('#loaderInterfaceRequest').hide();
                                	   $('.noResultSetFound').hide();
                                    document.getElementsByClassName('firstRow')[0].style.display = 'none';
-                               }
+                               }*/
                           }
 		        	}
 
 		        	if(data.online == '' && data.offline != ''){
+		        		 if(onlineSwitch == 'on'){
+		        		 	return;
+		        		 }
+
 		        		 $('.outerCovergenerated').hide();
 		        		 $('#amountOfData').show();
                          for(var i=0; i < data.offline.length; i++){
@@ -677,13 +1316,90 @@
                           	   if(data.offline[i].PersonalPicture == ''){
                                     personalPicture4 = 'man.jpg';
                           	   }
-                               var generatedHTML4 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: red;">'+ data.offline[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.offline[i].FirstName + ' ' + data.offline[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.offline[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingSecondRating(this.id)">' + data.offline[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.offline[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
+                               
+                                valueOfSearchFilterSelection = $('.search1').value;
+                               if(valueOfSearchFilterSelection == "filter by Professional"){
+                                     if(data.offline[i].DaisesType == "professional"){
+                                          professionalCounter++;
+                                          professionalArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
+
+                          	         if(data.offline.length == professionalCounter){
+                                          if(professionalArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                               //checking for typeo daises entered saviour
+                               if(valueOfSearchFilterSelection == "filter by Saviour"){
+                                     if(data.offline[i].DaisesType == "saviour"){
+                                          saviourCounter++;
+                                          saviourArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
+
+                          	         if(data.offline.length == saviourCounter){
+                                          if(saviourArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+                               
+                                //checking for typeo daises entered beloved
+                                if(valueOfSearchFilterSelection == "filter by Beloved"){
+                                     if(data.offline[i].DaisesType == "beloved"){
+                                          belovedCounter++;
+                                          belovedArray.push(data.offline[i]);
+                                          insertSomeHTML(data.offline[i]);
+                          	         }
+
+                          	         if(data.offline.length == belovedCounter){
+                                          if(belovedArray.length == 0){
+                                             // No Body Found at this this time
+                                               $('#loaderInterfaceRequest').hide();
+                                               $('.warningMessage').show();
+                                               setTimeout(function(){
+                                                   $('.warningMessage').hide();
+                                               }, 3000);
+                                               
+                                          }else{
+                                          	 // you will have to display the result found
+                                          	    $('#loaderInterfaceRequest').hide();
+                                                document.getElementsByClassName('firstRow')[0].style.display = 'block';
+                                          }
+                          	         }
+                               }
+
+
+                             /*  var generatedHTML4 = '<div class="outerCovergenerated">'+'<p class="onlineIdentifier" style="color: red;">'+ data.offline[i].OnlineStatus +'</p>'+'<p class="thefullname">' + data.offline[i].FirstName + ' ' + data.offline[i].LastName + '</p>'+'<div class="row innerRowGenerated">'+'<div class="col-4 pictureDivgenerated">'+'</div>'+'<div class="col-8 ratingDivgenerated">'+'<p class ="ratingNumber1Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingRating(this.id)">' + data.offline[i].RateAvg1 + '</p>'+'<p class="ratingNumber2Generated" id="' + data.offline[i].DaisesIdentity + '" onclick="outputtingSecondRating(this.id)">' + data.offline[i].RateAvg2 + '</p>'+'<p class="mainReview" id="">reviews</p>'+'</div></div><p class="AlaiseGenerated">' + data.offline[i].Daises + '</p><button class="connectButtonGenerated">Connect</button>'+'</div>';
 
                                $(generatedHTML4).insertBefore('#amountOfData');
                                if(offlineCounter1 == data.offline.length){
                                	   $('#loaderInterfaceRequest').hide();
                                    document.getElementsByClassName('firstRow')[0].style.display = 'block';
-                               }
+                               }*/
                          }
 		        	}
 		        },
@@ -700,7 +1416,7 @@
 		                  //rateUniqueId = value;
 		                  
 		     			   $.ajax({
-					        url: "http://127.0.0.1:8080/gettingRating",
+					        url: "http://127.0.0.1:8000/gettingRating",
 					        type: 'POST',
 					        data: JSON.stringify({ sentData: value }),
 		                    crossDomain: true,
@@ -775,7 +1491,7 @@
    	               var value = value;
  	       console.log(value + "   .............................");
          			   $.ajax({
-				        url: "http://127.0.0.1:8080/gettingRatingsOfClosePeople",
+				        url: "http://127.0.0.1:8000/gettingRatingsOfClosePeople",
 				        type: 'POST',
 				        data: JSON.stringify({sentData: value}),
                         crossDomain: true,

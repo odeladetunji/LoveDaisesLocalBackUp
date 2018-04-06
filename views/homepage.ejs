@@ -11,6 +11,7 @@
        <!-- <sript type='text/javascript' src="http://yibsajae.website:81/socket.io/socket.io.js"></script>-->
     <script src="/JavaScript/jquery-3.2.1.min(first).js"></script>
    <link rel="stylesheet" type="text/css" href="/StyleSheets/ratingModalForm1.css">
+   <link rel="stylesheet" type="text/css" href="/StyleSheets/rateFinal.css">
     <link rel="stylesheet" type="text/css" href="/StyleSheets/inbox.css">
 	<link rel="stylesheet" type="text/css" href="/StyleSheets/pictureModal.css">
     <link rel="stylesheet" type="text/css" href="/StyleSheets/Discursion.css">
@@ -472,6 +473,9 @@
     </div>
 
 	</div>
+     <div>
+     	 <% include ./partials/ratingFinal %>
+     </div>
 
 	<div class="ratingModalForm1" id="ratingModalForm1">
     <div id="modal1">
@@ -1146,7 +1150,7 @@ $(document).ready(function(){
 		    //document.getElementsByClassName('zeroDaises')[0].style.display = 'none';
            
             $('.headerForm').keyup(function(event){
-            	  $('.SearchHintp').hide();
+            	  //$('.SearchHintp').hide();
             	  var searchQuery = document.getElementsByClassName('search1')[0].value;
             	  var theType = typeof searchQuery;
             	  if(theType == 'number') theType = 'number';
